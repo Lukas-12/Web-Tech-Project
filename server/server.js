@@ -20,7 +20,10 @@ app.get("/", (req, res) => {
     res.status(200).send("Project WebTec");
 });
 
+app.get("/itemsToOrder", (req, res) => {
+   pool.query('SELECT * from items').then(db => res.status(200).json(db.rows))
 
+});
 
 
 
