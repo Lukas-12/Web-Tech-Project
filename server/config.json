@@ -1,0 +1,12 @@
+{
+  "database": {
+    "host": "localhost",
+    "user": "lukas",
+    "password": "Sepreue1",
+    "db": "webtech21project"
+  },
+  "auth": {
+    "jwt_key": "secret",
+    "expiration": "1h"
+  }
+}
