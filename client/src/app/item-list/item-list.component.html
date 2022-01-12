@@ -1,8 +1,8 @@
-<p>List of amazing dishes!</p>
+<p>List of our amazing dishes!</p>
 <ul class="dishes">
   <li *ngFor="let item of itemList">
-    <div> {{item.itemid}} </div>
-    <div> {{item.title}} </div>
-    <div> {{item.price}} </div>
+    <a routerLink="/detail/{{item.itemid}}">
+      <span class="badge">{{item.itemid}}</span> {{item.title}}
+    </a>
   </li>
 </ul>
