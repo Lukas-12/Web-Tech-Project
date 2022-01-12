@@ -20,8 +20,17 @@ app.get("/", (req, res) => {
     res.status(200).send("Project WebTec");
 });
 
+// Routes for menue items
 app.get("/itemsToOrder", (req, res) => {
    pool.query('SELECT * from items').then(db => res.status(200).json(db.rows))
+
+});
+
+app.get("/itemsToOrder/:id", (req, res) => {
+    let id = req.params.id;
+    pool.query('SELECT * from items where itemid = $1', [id]).then(db => {
+        res.status(200).json(db.rows)
+    })
 
 });
 

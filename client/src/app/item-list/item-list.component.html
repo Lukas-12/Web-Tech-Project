@@ -1,7 +1,7 @@
 <p>List of our amazing dishes!</p>
 <ul class="dishes">
   <li *ngFor="let item of itemList">
-    <a routerLink="/detail/{{item.itemid}}">
+    <a routerLink="/itemDetail/{{item.itemid}}">
       <span class="badge">{{item.itemid}}</span> {{item.title}}
     </a>
   </li>

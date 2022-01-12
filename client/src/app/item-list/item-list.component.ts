@@ -11,12 +11,13 @@ export class ItemListComponent implements OnInit {
 
   constructor(private serverService: ServerServiceService) { }
   itemList: Item[] | undefined;
+
   ngOnInit(): void {
     this.getItems()
-
   }
   getItems():void{
     this.serverService.getItemsToOrder().subscribe(itemList => this.itemList = itemList);
+
   }
 
 }

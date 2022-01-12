@@ -5,7 +5,7 @@ import {ItemDetailComponent} from "./item-detail/item-detail.component";
 
 const routes: Routes = [
   {path:'itemList',component: ItemListComponent},
-  {path:'itemDetail',component: ItemDetailComponent}
+  {path:'itemDetail/:id',component: ItemDetailComponent}
 
 
 ];
