@@ -1,0 +1,10 @@
+<div *ngIf="shoppingCardService.shoppingCart.length">
+
+  <h2>Shopping Cart</h2>
+  <div *ngFor='let item of shoppingCardService.shoppingCart'>
+    {{item.title}}
+    {{item.amount}}x
+  </div>
+
+</div>
+<button (click)="goBack()">go back</button>

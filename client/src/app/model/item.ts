@@ -8,4 +8,5 @@ export interface Item{
   status: string;
   likescount: number;
   dislikescount: number;
+  amount: number;
 }

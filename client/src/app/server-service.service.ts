@@ -25,4 +25,6 @@ export class ServerServiceService {
   public getItem(id:Number): Observable<Item[]>{
     return this.httpclient.get<Item[]>("http://localhost:3000/itemsToOrder/" + id);
   }
+
+
 }

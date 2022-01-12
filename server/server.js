@@ -29,7 +29,8 @@ app.get("/itemsToOrder", (req, res) => {
 app.get("/itemsToOrder/:id", (req, res) => {
     let id = req.params.id;
     pool.query('SELECT * from items where itemid = $1', [id]).then(db => {
-        res.status(200).json(db.rows)
+       // res.status(200).json(db.rows)
+        res.status(200).send(db.rows)
     })
 
 });
