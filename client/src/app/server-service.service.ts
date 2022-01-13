@@ -6,13 +6,12 @@ import {ItemListComponent} from "./item-list/item-list.component";
 @Injectable({
   providedIn: 'root'
 })
+/*
+Here you can find all DB handlers
+ */
 export class ServerServiceService {
 
   constructor(private httpclient: HttpClient){}
-
-
-
-
 
 
   // TODO: write your DB handlers below
@@ -21,7 +20,7 @@ export class ServerServiceService {
     return this.httpclient.get<Item[]>("http://localhost:3000/itemsToOrder");
   }
 
-  //Get a single item
+  //Get a single item from DB
   public getItem(id:Number): Observable<Item[]>{
     return this.httpclient.get<Item[]>("http://localhost:3000/itemsToOrder/" + id);
   }

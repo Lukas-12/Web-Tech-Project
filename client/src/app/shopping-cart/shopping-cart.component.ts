@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {ShoppingCartService} from "../shopping-cart.service";
 import {Location} from "@angular/common";
-
+/*
+Represents the shopping Cart
+Shopping-cart.service takes more information
+ */
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',

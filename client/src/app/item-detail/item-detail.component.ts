@@ -9,6 +9,9 @@ import {ShoppingCartService} from "../shopping-cart.service";
   templateUrl: './item-detail.component.html',
   styleUrls: ['./item-detail.component.css']
 })
+/*
+Represents a detail view of an Item
+ */
 export class ItemDetailComponent implements OnInit {
   item: Item[] | undefined
 
@@ -24,18 +27,29 @@ export class ItemDetailComponent implements OnInit {
    this.getItem();
   }
 
+  //Get the selected Item from the DB
   getItem(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
     this.itemService.getItem(id).subscribe(item => this.item = item);
 
 
   }
+  //Step back
   goBack(): void {
     this.location.back();
   }
+
+  //Add the Item to the shopping cart
   addItem():void{
     // @ts-ignore
     this.shoppingCartService.addItem(this.item[0]);
+  }
+
+  //Remove item from shopping cart
+  //TODO add to HTML or not?
+  removeItem():void{
+    // @ts-ignore
+    this.shoppingCartService.removeItem(this.item[0]);
   }
 
 }

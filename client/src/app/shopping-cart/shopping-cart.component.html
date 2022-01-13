@@ -4,7 +4,10 @@
   <div *ngFor='let item of shoppingCardService.shoppingCart'>
     {{item.title}}
     {{item.amount}}x
+    <button (click)="shoppingCardService.removeItem(item)">remove one</button>
+    <button (click)="shoppingCardService.addItem(item)">add one</button>
   </div>
 
 </div>
+
 <button (click)="goBack()">go back</button>
