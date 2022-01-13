@@ -20,19 +20,21 @@ app.get("/", (req, res) => {
     res.status(200).send("Project WebTec");
 });
 
-// Routes for menue items
+//Get all available items
 app.get("/itemsToOrder", (req, res) => {
-   pool.query('SELECT * from items').then(db => res.status(200).json(db.rows))
+   pool.query("select * from items i where i.status = 'available'").then(db => res.status(200).json(db.rows))
+       .catch(dberr => res.status(400).send("Database error"))
 
 });
 
+//Get specific item with id
 app.get("/itemsToOrder/:id", (req, res) => {
     let id = req.params.id;
     pool.query('SELECT * from items where itemid = $1', [id]).then(db => {
-       // res.status(200).json(db.rows)
         res.status(200).send(db.rows)
-    })
 
+    })
+        .catch(dberr => res.status(400).send("Database error"))
 });
 
 
