@@ -37,7 +37,12 @@ app.get("/itemsToOrder/:id", (req, res) => {
         .catch(dberr => res.status(400).send("Database error"))
 });
 
+//Get all reviews
+app.get("/reviews", (req, res) => {
+    pool.query("select * from reviews ").then(db => res.status(200).json(db.rows))
+        .catch(dberr => res.status(400).send("Database error"))
 
+});
 
 
 

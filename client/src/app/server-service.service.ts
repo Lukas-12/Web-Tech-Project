@@ -3,6 +3,7 @@ import { HttpClient} from '@angular/common/http';
 import {Item} from "./model/item";
 import { Observable } from 'rxjs';
 import {ItemListComponent} from "./item-list/item-list.component";
+import {Review} from "./model/review";
 @Injectable({
   providedIn: 'root'
 })
@@ -23,6 +24,11 @@ export class ServerServiceService {
   //Get a single item from DB
   public getItem(id:Number): Observable<Item[]>{
     return this.httpclient.get<Item[]>("http://localhost:3000/itemsToOrder/" + id);
+  }
+
+  //Get all reviews form DB
+  public getReviews(): Observable<Review[]>{
+    return this.httpclient.get<Review[]>("http://localhost:3000/reviews");
   }
 
 
