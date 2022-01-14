@@ -2,7 +2,7 @@
 <ul class="review">
   <li *ngFor="let review of reviewList">
       <p>{{review.username}}</p>
-      <p>{{review.date}}</p>
+      <p>{{review.date.substring(0,review.date.indexOf("T"))}}</p>
       <p>{{review.desc}}</p>
   </li>
 </ul>
