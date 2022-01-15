@@ -35,23 +35,27 @@ export class OrderDetailComponent implements OnInit {
       let items = data[0].ordereditems;
 
       for (let i of items) {
-        let newItem = {} as Item;
-        this.serverService.getItem(i.itemid).subscribe(iditem => newItem.title = iditem[0].title)
-        newItem.itemid = i.itemid;
-        newItem.amount = i.number;
-        newItem.status = i.status;
-        newItem.gotrated = i.gotrated;
-        this.orderitems.push(newItem);
+        this.serverService.getItem(i.itemid).subscribe(iditem => {
+          let newItem = {} as Item;
+          newItem.title = iditem[0].title
+          newItem.itemid = i.itemid;
+          newItem.amount = i.number;
+          newItem.status = i.status;
+          newItem.gotrated = i.gotrated;
+          if (this.orderitems) {
+             this.orderitems.push(newItem);
+          }
+        })
       }
     })
   }
 
   likeItem(item: Item): void {
-    console.log("id: " + item.itemid + " liked")
+    this.serverService.likeItem(item.itemid).subscribe();
   }
 
   dislikeItem(item: Item): void {
-    console.log("id: " + item.itemid + " disliked")
+    this.serverService.dislikeItem(item.itemid).subscribe();
   }
 
 }

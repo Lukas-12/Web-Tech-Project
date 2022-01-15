@@ -2,7 +2,9 @@
 <li *ngFor="let item of orderitems">
   {{item.title}}
   {{item.amount}}x
-  <button (click)="likeItem(item)">Like :)</button>
-  <button (click)="dislikeItem(item)">Dislike :(</button>
+  <span *ngIf="item.gotrated == false">
+    <button (click)="likeItem(item)">Like :)</button>
+    <button (click)="dislikeItem(item)">Dislike :(</button>
+  </span>
 </li>
 <button (click)="goBack()">go back</button>

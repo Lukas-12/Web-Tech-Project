@@ -42,8 +42,20 @@ export class ServerServiceService {
     return this.httpclient.get<Order[]>("http://localhost:3000/orders");
   }
 
+  //Get all items from an order from DB
   public getOrderItems(id: Number): Observable<any> {
     return this.httpclient.get<any>("http://localhost:3000/orderItems/" + id);
   }
+
+  //Like an item
+  public likeItem(id: Number): Observable<any> {
+    return this.httpclient.post<any>("http://localhost:3000/likeItem/" + id, null);
+  }
+
+  //Like an item
+  public dislikeItem(id: Number): Observable<any> {
+    return this.httpclient.post<any>("http://localhost:3000/dislikeItem/" + id, null);
+  }
+
 
 }

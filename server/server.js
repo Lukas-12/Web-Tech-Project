@@ -57,6 +57,20 @@ app.get("/orderItems/:id", (req, res) => {
         .catch(dberr => res.status(400).send("Database error"))
 })
 
+//Like an item
+app.post("/likeItem/:id", (req, res) => {
+    let id = req.params.id;
+    pool.query("update items set likescount = likescount + 1 where itemid = $1", [id]).then(db => res.status(200))
+        .catch(dberr => res.status(400).send("Database error"))
+})
+
+//Dislike an item
+app.post("/dislikeItem/:id", (req, res) => {
+    let id = req.params.id;
+    pool.query("update items set dislikescount = dislikescount + 1 where itemid = $1", [id]).then(db => res.status(200))
+        .catch(dberr => res.status(400).send("Database error"))
+})
+
 //Create a review
 app.post("/reviews", (req, res) => {
     let username = req.body.username;
@@ -74,9 +88,6 @@ app.post("/reviews", (req, res) => {
                     res.status(200).json(db.rows);
             })
         }).catch(dberr => res.status(400).send("Database error"))
-
-
-
 });
 
 
