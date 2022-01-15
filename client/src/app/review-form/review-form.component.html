@@ -1,0 +1,48 @@
+<div class="container">
+  <div [hidden]="submitted">
+
+    <form (ngSubmit)="onSubmit()" #reviewForm="ngForm">
+
+      <div class="form-group">
+        <label for="name">Username</label>
+        <input type="text" class="form-control" id="name"
+               required
+               [(ngModel)]="model.username" name="name"
+               #name="ngModel">
+        <div [hidden]="name.valid || name.pristine"
+             class="alert alert-danger">
+          Username is required
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="desc">Write your Review here</label>
+        <input type="text" class="form-control" id="desc"
+               required
+               [(ngModel)]="model.description" name="desc"
+               #description ="ngModel">
+        <div [hidden]="description.valid || description.pristine"
+             class="alert alert-danger">
+          Description is required
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-success" [disabled]="!reviewForm.form.valid">Submit</button>
+      <button type="button" class="btn btn-default" (click)="newReview(); reviewForm.reset()">New Review</button>
+    </form>
+  </div>
+
+  <div [hidden]="!submitted">
+    <h2>You submitted the following:</h2>
+    <div class="row">
+      <div class="col-xs-3">Username</div>
+      <div class="col-xs-9">{{ model.username }}</div>
+    </div>
+    <div class="row">
+      <div class="col-xs-3">Review</div>
+      <div class="col-xs-9">{{ model.description }}</div>
+    </div>
+    <br>
+    <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+  </div>
+</div>

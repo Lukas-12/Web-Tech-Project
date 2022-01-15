@@ -44,6 +44,19 @@ app.get("/reviews", (req, res) => {
 
 });
 
+//Create a review
+app.post("/reviews", (req, res) => {
+    let username = req.body.username;
+    let date = req.body.date;
+    let desc = req.body.desc;
+    const values = [username,date,desc];
+    const query = "insert into reviews (username, date, description) VALUES ($1,$2,$3)";
+    pool.query(query,values)
+        .then(db => res.status(200).json(db.rows))
+        .catch(dberr => res.status(400).send("Database error"))
+
+});
+
 
 
 let port = 3000;
