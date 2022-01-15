@@ -9,4 +9,5 @@ export interface Item{
   likescount: number;
   dislikescount: number;
   amount: number;
+  gotRated: boolean;
 }
