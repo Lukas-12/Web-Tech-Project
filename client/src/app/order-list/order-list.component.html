@@ -1,0 +1,9 @@
+<h2>Your Orders</h2>
+<ul class="orders">
+  <li *ngFor="let order of orderList; let i=index">
+    <a routerLink="/orderDetail/{{order.orderid}}">
+      <span class="badge">Order {{i+1}}</span> {{order.status}}
+    </a>
+  </li>
+</ul>
+

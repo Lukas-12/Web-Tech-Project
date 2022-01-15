@@ -44,6 +44,19 @@ app.get("/reviews", (req, res) => {
 
 });
 
+//Get all orders
+app.get("/orders", (req, res) => { //token has to be checked first...ugh
+    pool.query("select * from orders").then(db => res.status(200).json(db.rows))
+        .catch(dberr => res.status(400).send("Database error"))
+})
+
+//Get items of an order
+app.get("/orderItems/:id", (req, res) => {
+    let id = req.params.id;
+    pool.query("select ordereditems from orders where orderid = $1", [id]).then(db => res.status(200).json(db.rows))
+        .catch(dberr => res.status(400).send("Database error"))
+})
+
 //Create a review
 app.post("/reviews", (req, res) => {
     let username = req.body.username;

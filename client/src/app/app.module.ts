@@ -10,6 +10,8 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { ReviewListComponent } from './review-list/review-list.component';
 import { ReviewFormComponent } from './review-form/review-form.component';
 import { FormsModule } from '@angular/forms';
+import { OrderListComponent } from './order-list/order-list.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { FormsModule } from '@angular/forms';
     ItemDetailComponent,
     ShoppingCartComponent,
     ReviewListComponent,
-    ReviewFormComponent
+    ReviewFormComponent,
+    OrderListComponent,
+    OrderDetailComponent
   ],
   imports: [
     BrowserModule,

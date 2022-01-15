@@ -4,6 +4,7 @@ import {Item} from "./model/item";
 import { Observable } from 'rxjs';
 import {ItemListComponent} from "./item-list/item-list.component";
 import {Review} from "./model/review";
+import { Order } from './model/order';
 @Injectable({
   providedIn: 'root'
 })
@@ -34,6 +35,15 @@ export class ServerServiceService {
   //Post a new review to DB
   public postReview(review:Review): Observable<Review>{
     return this.httpclient.post<Review>("http://localhost:3000/reviews",review)
+  }
+
+  //Get all orders from DB
+  public getOrders(): Observable<Order[]> {
+    return this.httpclient.get<Order[]>("http://localhost:3000/orders");
+  }
+
+  public getOrderItems(id: Number): Observable<any> {
+    return this.httpclient.get<any>("http://localhost:3000/orderItems/" + id);
   }
 
 }
