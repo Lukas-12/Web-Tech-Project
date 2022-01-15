@@ -33,7 +33,7 @@ export class ServerServiceService {
 
   //Post a new review to DB
   public postReview(review:Review): Observable<Review>{
-    return this.httpclient.post<Review>("http://localhost:3000/reviews",JSON.stringify(review))
+    return this.httpclient.post<Review>("http://localhost:3000/reviews",review)
   }
 
 }

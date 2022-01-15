@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Review} from "../model/review";
 import {ServerServiceService} from "../server-service.service";
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-review-form',
@@ -9,30 +10,32 @@ import {ServerServiceService} from "../server-service.service";
 })
 export class ReviewFormComponent implements OnInit {
 
-  model: Review = {
+  model : Review ={
     username: "",
-    date: new Date().getDate().toString(),
-    description: ""
-  };
+    description: "",
+    date: ""
+  }
 
   submitted = false;
 
   constructor(
-    private serverService: ServerServiceService
+    private serverService: ServerServiceService,
+
   ) { }
 
   ngOnInit(): void {
+
   }
 
   onSubmit() {
     this.submitted = true;
+
   }
 
-  newReview(){
-    this.model.date = new Date().getDate().toString();
-    this.model.description = "";
-    this.model.username = "";
-    //this.serverService.postReview(this.model).subscribe(model => this.model = model);
+  updateReview(){
+    this.serverService.postReview(this.model).subscribe(model => this.model = model);
+
   }
+
 
 }

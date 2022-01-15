@@ -1,7 +1,7 @@
 <div class="container">
   <div [hidden]="submitted">
 
-    <form (ngSubmit)="onSubmit()" #reviewForm="ngForm">
+    <form #reviewForm="ngForm" (ngSubmit)="onSubmit()" >
 
       <div class="form-group">
         <label for="name">Username</label>
@@ -27,22 +27,11 @@
         </div>
       </div>
 
-      <button type="submit" class="btn btn-success" [disabled]="!reviewForm.form.valid">Submit</button>
-      <button type="button" class="btn btn-default" (click)="newReview(); reviewForm.reset()">New Review</button>
+      <button type="submit" class="btn btn-success" [disabled]="!reviewForm.form.valid" (click)="updateReview()">Submit</button>
     </form>
   </div>
 
   <div [hidden]="!submitted">
-    <h2>You submitted the following:</h2>
-    <div class="row">
-      <div class="col-xs-3">Username</div>
-      <div class="col-xs-9">{{ model.username }}</div>
-    </div>
-    <div class="row">
-      <div class="col-xs-3">Review</div>
-      <div class="col-xs-9">{{ model.description }}</div>
-    </div>
-    <br>
-    <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+    <h2>Thank you for your Review!</h2>
   </div>
 </div>

@@ -47,13 +47,22 @@ app.get("/reviews", (req, res) => {
 //Create a review
 app.post("/reviews", (req, res) => {
     let username = req.body.username;
-    let date = req.body.date;
-    let desc = req.body.desc;
-    const values = [username,date,desc];
-    const query = "insert into reviews (username, date, description) VALUES ($1,$2,$3)";
-    pool.query(query,values)
-        .then(db => res.status(200).json(db.rows))
-        .catch(dberr => res.status(400).send("Database error"))
+    let date = new Date().toISOString().slice(0, 10)
+    let desc = req.body.description;
+
+    pool.query("select MAX(reviewid) FROM reviews")
+        .then(db =>{
+            let id = db.rows[0].max;
+            id++;
+            const values = [id,username,date,desc];
+            const query = "insert into reviews (reviewid,username, date, description) VALUES ($1,$2,$3,$4)";
+            pool.query(query,values)
+                .then( db => {
+                    res.status(200).json(db.rows);
+            })
+        }).catch(dberr => res.status(400).send("Database error"))
+
+
 
 });
 
