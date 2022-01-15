@@ -21,6 +21,11 @@ export class OrderListComponent implements OnInit {
     this.getOrders();
   }
 
+  //Step back
+  goBack(): void {
+    this.location.back();
+  }
+
   getOrders(): void {
     this.serverService.getOrders().subscribe(orderList => {
       this.orderList = orderList;

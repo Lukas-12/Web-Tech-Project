@@ -23,6 +23,11 @@ export class OrderDetailComponent implements OnInit {
     this.getOrderItems();
   }
 
+  //Step back
+  goBack(): void {
+    this.location.back();
+  }
+
   getOrderItems(): void {
     this.orderid = Number(this.route.snapshot.paramMap.get('id'));
     this.serverService.getOrderItems(this.orderid).subscribe(data => {
@@ -39,6 +44,14 @@ export class OrderDetailComponent implements OnInit {
         this.orderitems.push(newItem);
       }
     })
+  }
+
+  likeItem(item: Item): void {
+    console.log("id: " + item.itemid + " liked")
+  }
+
+  dislikeItem(item: Item): void {
+    console.log("id: " + item.itemid + " disliked")
   }
 
 }
