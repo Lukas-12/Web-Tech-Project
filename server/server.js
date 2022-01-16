@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 
 //Get all available items
 app.get("/itemsToOrder", (req, res) => {
-    pool.query("select * from items i where i.status = 'available'").then(db => res.status(200).json(db.rows))
+    pool.query("select * from items i where i.status = 'available' order by i.itemid asc").then(db => res.status(200).json(db.rows))
        .catch(dberr => res.status(400).send("Database error"))
 
 });
