@@ -119,7 +119,7 @@ app.post("/submitOrder",checkAuth, (req, res) => {
         .then(db =>{
             let id = db.rows[0].max;
             id++;
-            const values = [id,status,date,table,reference,token,totalAmount,JSON.stringify(orderedItems)];
+            const values = [id,status,date,table,reference,token,(parseInt(totalAmount * 100) / 100.0),JSON.stringify(orderedItems)];
             const query = "insert into orders (orderid,status, orderdate, tableid, paymentreference,paymenttoken,totalamount,ordereditems ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)";
             pool.query(query,values)
                 .then( db => {
