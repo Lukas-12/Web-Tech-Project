@@ -1,5 +1,6 @@
-<h2>List of our amazing dishes!</h2>
+
 <ul class="dishes">
+  <h2>List of our amazing dishes!</h2>
   <li *ngFor="let item of itemList">
     <a routerLink="/itemDetail/{{item.itemid}}">
       <span class="badge">{{item.itemid}}</span> {{item.title}}

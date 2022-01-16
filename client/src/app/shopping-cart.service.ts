@@ -19,6 +19,7 @@ export class ShoppingCartService {
     }else { //Add Item to Array
       item.amount = 1;
       this.shoppingCart.push(item);
+
     }
   }
 
