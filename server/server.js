@@ -8,11 +8,12 @@ let cors = require('cors')
 const app = express();
 app.use(express.static('public'));
 app.use(cors());
-
+const checkAuth = require('./check_auth');
 const pool = require('./pool.js');
-
+const jwt = require('jsonwebtoken');
 
 let bodyParser = require('body-parser');
+
 app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
@@ -87,6 +88,43 @@ app.post("/reviews", (req, res) => {
                 .then( db => {
                     res.status(200).json(db.rows);
             })
+        }).catch(dberr => res.status(400).send("Database error"))
+});
+
+//Start, get token
+app.get("/login", (req, res) => {
+    const token = jwt.sign({},cfg.auth.jwt_key,{ expiresIn: cfg.auth.expiration })
+    res.status(200).json(token);
+});
+
+//Submit an Order
+app.post("/submitOrder",checkAuth, (req, res) => {
+    let items = req.body.items;
+    let table = req.body.table;
+    let orderedItems = [];
+    let date = new Date().toISOString().slice(0, 10)
+    let reference = req.body.reference
+    let token = req.headers.authorization.split(" ")[1];
+    let totalAmount = 0;
+    let status = "ordered";
+    for(let item of items){
+        totalAmount += (item.amount * item.price)
+        let id = parseInt(item.itemid);
+        let amount = item.amount;
+        let json ={itemid: id,amount:amount,status: "ordered", gotrated:false} ;
+        orderedItems.push(json);
+    }
+
+    pool.query("select MAX(orderid) FROM orders")
+        .then(db =>{
+            let id = db.rows[0].max;
+            id++;
+            const values = [id,status,date,table,reference,token,totalAmount,JSON.stringify(orderedItems)];
+            const query = "insert into orders (orderid,status, orderdate, tableid, paymentreference,paymenttoken,totalamount,ordereditems ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)";
+            pool.query(query,values)
+                .then( db => {
+                    res.status(200);
+                })
         }).catch(dberr => res.status(400).send("Database error"))
 });
 

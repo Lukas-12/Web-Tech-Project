@@ -25,8 +25,7 @@ export class ItemListComponent implements OnInit {
 
   // Get all Items from DB
   getItems():void{
-    this.serverService.getItemsToOrder().subscribe(itemList => this.itemList = itemList);
-
+      this.serverService.getItemsToOrder().subscribe(itemList => this.itemList = itemList);
   }
 
 

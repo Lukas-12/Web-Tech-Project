@@ -7,13 +7,16 @@ import {ReviewListComponent} from "./review-list/review-list.component";
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 
+
 const routes: Routes = [
   { path: 'itemList', component: ItemListComponent},
   { path: 'itemDetail/:id', component: ItemDetailComponent},
   { path: 'shoppingCart', component: ShoppingCartComponent},
   { path: 'reviews', component: ReviewListComponent },
   { path: 'orderList', component: OrderListComponent },
-  { path: 'orderDetail/:id', component: OrderDetailComponent }
+  { path: 'orderDetail/:id', component: OrderDetailComponent },
+
+
 
 ];
 

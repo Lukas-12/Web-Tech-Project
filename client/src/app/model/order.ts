@@ -1,12 +1,12 @@
 import { Item } from './item';
 
 export interface Order {
-  orderid: number;
+  orderid: number; //server
   status: string;
   orderdate: Date;
   tableid: number;
-  paymentreference: string;
-  paymenttoken: string;
-  totalamount: number;
-  ordereditems: Item[];
+  paymentreference: string; //server
+  paymenttoken: string; // server
+  totalamount: number;  //server
+  ordereditems: Item[]; //client
 }

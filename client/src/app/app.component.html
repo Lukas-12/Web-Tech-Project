@@ -1,9 +1,17 @@
-<h1>{{title}}</h1>
-<nav>
+
+
+<h1>Guest View</h1>
+<div [hidden] ="entered">
+  <button  (click)="login() ">Enter</button>
+</div>
+
+<nav [hidden]="!entered">
   <a routerLink="/itemList">Order Items</a>
   <a routerLink="/shoppingCart">Shopping Cart</a>
   <a routerLink="/reviews">Reviews</a>
   <a routerLink="/orderList">My Orders</a>
 </nav>
-<router-outlet></router-outlet>
+<div [hidden]="!entered">
+  <router-outlet></router-outlet>
+</div>
 

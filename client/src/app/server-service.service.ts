@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Item} from "./model/item";
 import { Observable } from 'rxjs';
 import {ItemListComponent} from "./item-list/item-list.component";
@@ -57,5 +57,23 @@ export class ServerServiceService {
     return this.httpclient.post<any>("http://localhost:3000/dislikeItem/" + id, null);
   }
 
+  public login()  {
+    if(localStorage.getItem("token") === null ){
+      this.httpclient.get<any>("http://localhost:3000/login" ).subscribe(token => {
+        localStorage.setItem("token",token);
+        console.log(localStorage.getItem("token"));
 
+      })
+      return true;
+    }
+    return false;
+  }
+  //submit order
+  public submitOrder(items:  Item[], reference: String, table: number): Observable<any> {
+    let header = {
+      headers: new HttpHeaders()
+        .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)
+    }
+    return this.httpclient.post<any>("http://localhost:3000/submitOrder",{items: items, reference: reference, table: table} ,header);
+  }
 }
