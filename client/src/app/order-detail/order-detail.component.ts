@@ -10,8 +10,9 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./order-detail.component.css']
 })
 export class OrderDetailComponent implements OnInit {
-  orderid: Number | undefined;
+  orderid: Number = -1;
   orderitems: Item[] | undefined;
+  rated = false;
 
   constructor(
     private serverService: ServerServiceService,
@@ -20,6 +21,7 @@ export class OrderDetailComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.orderid = -1;
     this.getOrderItems();
   }
 
@@ -33,13 +35,12 @@ export class OrderDetailComponent implements OnInit {
     this.serverService.getOrderItems(this.orderid).subscribe(data => {
       this.orderitems = [];
       let items = data[0].ordereditems;
-
       for (let i of items) {
+        let newItem = {} as Item;
         this.serverService.getItem(i.itemid).subscribe(iditem => {
-          let newItem = {} as Item;
           newItem.title = iditem[0].title
           newItem.itemid = i.itemid;
-          newItem.amount = i.number;
+          newItem.amount = i.amount;
           newItem.status = i.status;
           newItem.gotrated = i.gotrated;
           if (this.orderitems) {
@@ -51,11 +52,11 @@ export class OrderDetailComponent implements OnInit {
   }
 
   likeItem(item: Item): void {
-    this.serverService.likeItem(item.itemid).subscribe();
+    this.serverService.likeItem(this.orderid, item.itemid).subscribe();
   }
 
   dislikeItem(item: Item): void {
-    this.serverService.dislikeItem(item.itemid).subscribe();
+    this.serverService.dislikeItem(this.orderid, item.itemid).subscribe();
   }
 
 }

@@ -39,7 +39,11 @@ export class ServerServiceService {
 
   //Get all orders from DB
   public getOrders(): Observable<Order[]> {
-    return this.httpclient.get<Order[]>("http://localhost:3000/orders");
+    let header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
+    }
+    return this.httpclient.get<Order[]>("http://localhost:3000/orders", header);
   }
 
   //Get all items from an order from DB
@@ -48,13 +52,21 @@ export class ServerServiceService {
   }
 
   //Like an item
-  public likeItem(id: Number): Observable<any> {
-    return this.httpclient.post<any>("http://localhost:3000/likeItem/" + id, null);
+  public likeItem(orderId: Number, itemId: Number): Observable<any> {
+    let header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
+    }
+    return this.httpclient.post<any>("http://localhost:3000/likeItem/" + orderId + "/" + itemId, null, header);
   }
 
   //Like an item
-  public dislikeItem(id: Number): Observable<any> {
-    return this.httpclient.post<any>("http://localhost:3000/dislikeItem/" + id, null);
+  public dislikeItem(orderId: Number, itemId: Number): Observable<any> {
+    let header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
+    }
+    return this.httpclient.post<any>("http://localhost:3000/dislikeItem/" + orderId + "/" + itemId, null, header);
   }
 
   public login()  {

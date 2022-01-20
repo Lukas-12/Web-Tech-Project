@@ -3,8 +3,8 @@
   {{item.title}}
   {{item.amount}}x
   <span *ngIf="item.gotrated == false">
-    <button (click)="likeItem(item)">Like :)</button>
-    <button (click)="dislikeItem(item)">Dislike :(</button>
+    <button [hidden]="rated" (click)="likeItem(item); rated=true">Like :)</button>
+    <button [hidden]="rated" (click)="dislikeItem(item); rated=true">Dislike :(</button>
   </span>
 </li>
 <button (click)="goBack()">go back</button>

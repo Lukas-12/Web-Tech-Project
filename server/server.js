@@ -46,8 +46,9 @@ app.get("/reviews", (req, res) => {
 });
 
 //Get all orders
-app.get("/orders", (req, res) => { //token has to be checked first...ugh
-    pool.query("select * from orders").then(db => res.status(200).json(db.rows))
+app.get("/orders", checkAuth, (req, res) => {
+    let token = req.headers.authorization.split(" ")[1];
+    pool.query("select * from orders where paymenttoken = $1", [token]).then(db => res.status(200).json(db.rows))
         .catch(dberr => res.status(400).send("Database error"))
 })
 
@@ -59,17 +60,41 @@ app.get("/orderItems/:id", (req, res) => {
 })
 
 //Like an item
-app.post("/likeItem/:id", (req, res) => {
-    let id = req.params.id;
-    pool.query("update items set likescount = likescount + 1 where itemid = $1", [id]).then(db => res.status(200))
-        .catch(dberr => res.status(400).send("Database error"))
+app.post("/likeItem/:orderid/:itemid", checkAuth, (req, res) => {
+    let orderId = req.params.orderid;
+    let itemId = req.params.itemid;
+    let token = req.headers.authorization.split(" ")[1];
+
+    pool.query("update orders" 
+    +" set ordereditems = ((ordereditems:: jsonb - (cast(t.idx as integer) - 1)) || jsonb_set(t.item, '{gotrated}', 'true'))"
+    +" from"
+    +" (Select orderid as idd, paymenttoken as tok, dat as item, idx" 
+    +" from orders o, jsonb_array_elements(o.ordereditems) with ordinality as obj(dat, idx)"
+    +" where o.orderid = $1 and o.paymenttoken = $2 and cast(dat ->> 'itemid' as integer) = $3"
+    +") t"
+        + " where orderid = t.idd and paymenttoken = t.tok", [orderId, token, itemId]).then(db => {
+            pool.query("update items set likescount = likescount + 1 where itemid = $1", [itemId]).then(db => res.status(200))
+                .catch(dberr => res.status(400).send("Database error"))
+        })
 })
 
 //Dislike an item
-app.post("/dislikeItem/:id", (req, res) => {
-    let id = req.params.id;
-    pool.query("update items set dislikescount = dislikescount + 1 where itemid = $1", [id]).then(db => res.status(200))
-        .catch(dberr => res.status(400).send("Database error"))
+app.post("/dislikeItem/:orderid/:itemid", (req, res) => {
+    let orderId = req.params.orderid;
+    let itemId = req.params.itemid;
+    let token = req.headers.authorization.split(" ")[1];
+
+    pool.query("update orders"
+        + " set ordereditems = ((ordereditems:: jsonb - (cast(t.idx as integer) - 1)) || jsonb_set(t.item, '{gotrated}', 'true'))"
+        + " from"
+        + " (Select orderid as idd, paymenttoken as tok, dat as item, idx"
+        + " from orders o, jsonb_array_elements(o.ordereditems) with ordinality as obj(dat, idx)"
+        + " where o.orderid = $1 and o.paymenttoken = $2 and cast(dat ->> 'itemid' as integer) = $3"
+        + ") t"
+        + " where orderid = t.idd and paymenttoken = t.tok", [orderId, token, itemId]).then(db => {
+            pool.query("update items set dislikescount = dislikescount + 1 where itemid = $1", [itemId]).then(db => res.status(200))
+                .catch(dberr => res.status(400).send("Database error"))
+        })
 })
 
 //Create a review
@@ -98,7 +123,7 @@ app.get("/login", (req, res) => {
 });
 
 //Submit an Order
-app.post("/submitOrder",checkAuth, (req, res) => {
+app.post("/submitOrder", checkAuth, (req, res) => {
     let items = req.body.items;
     let table = req.body.table;
     let orderedItems = [];
