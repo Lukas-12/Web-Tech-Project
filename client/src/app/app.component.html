@@ -1,8 +1,10 @@
 
 
 <h1>Guest View</h1>
-<div [hidden] ="entered">
-  <button  (click)="login() ">Enter</button>
+<div class="login" [hidden] ="entered">
+  <button class="button button-stable button-clear" on-click="login()">
+    <img src="/assets/qrCode.png"  width="200" height="200">
+  </button>
 </div>
 
 <nav [hidden]="!entered">
