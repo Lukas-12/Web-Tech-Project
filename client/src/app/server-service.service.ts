@@ -52,8 +52,8 @@ export class ServerServiceService {
   }
 
   //Like an item
-  public likeItem(orderId: Number, itemId: Number): Observable<any> {
-    let header = {
+   public likeItem (orderId: Number, itemId: Number) : Observable<any> {
+     let header =  {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
     }
@@ -86,6 +86,8 @@ export class ServerServiceService {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)
     }
-    return this.httpclient.post<any>("http://localhost:3000/submitOrder",{items: items, reference: reference, table: table} ,header);
+    let x = this.httpclient.post<any>("http://localhost:3000/submitOrder",{items: items, reference: reference, table: table} ,header);
+    console.log(x)
+    return x;
   }
 }

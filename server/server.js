@@ -60,26 +60,28 @@ app.get("/orderItems/:id", (req, res) => {
 })
 
 //Like an item
-app.post("/likeItem/:orderid/:itemid", checkAuth, (req, res) => {
+ app.post("/likeItem/:orderid/:itemid", checkAuth,  (req, res) => {
     let orderId = req.params.orderid;
     let itemId = req.params.itemid;
     let token = req.headers.authorization.split(" ")[1];
 
-    pool.query("update orders" 
+     pool.query("update orders"
     +" set ordereditems = ((ordereditems:: jsonb - (cast(t.idx as integer) - 1)) || jsonb_set(t.item, '{gotrated}', 'true'))"
     +" from"
     +" (Select orderid as idd, paymenttoken as tok, dat as item, idx" 
     +" from orders o, jsonb_array_elements(o.ordereditems) with ordinality as obj(dat, idx)"
     +" where o.orderid = $1 and o.paymenttoken = $2 and cast(dat ->> 'itemid' as integer) = $3"
     +") t"
-        + " where orderid = t.idd and paymenttoken = t.tok", [orderId, token, itemId]).then(db => {
-            pool.query("update items set likescount = likescount + 1 where itemid = $1", [itemId]).then(db => res.status(200))
+        + " where orderid = t.idd and paymenttoken = t.tok", [orderId, token, itemId]).then  ( db  =>  {
+              pool.query("update items set likescount = likescount + 1 where itemid = $1", [itemId]).then(db => {
+                  res.status(200).send()
+              })
                 .catch(dberr => res.status(400).send("Database error"))
         })
 })
 
 //Dislike an item
-app.post("/dislikeItem/:orderid/:itemid", (req, res) => {
+ app.post("/dislikeItem/:orderid/:itemid",  (req, res) => {
     let orderId = req.params.orderid;
     let itemId = req.params.itemid;
     let token = req.headers.authorization.split(" ")[1];
@@ -92,7 +94,7 @@ app.post("/dislikeItem/:orderid/:itemid", (req, res) => {
         + " where o.orderid = $1 and o.paymenttoken = $2 and cast(dat ->> 'itemid' as integer) = $3"
         + ") t"
         + " where orderid = t.idd and paymenttoken = t.tok", [orderId, token, itemId]).then(db => {
-            pool.query("update items set dislikescount = dislikescount + 1 where itemid = $1", [itemId]).then(db => res.status(200))
+            pool.query("update items set dislikescount = dislikescount + 1 where itemid = $1", [itemId]).then(db => res.status(200).send())
                 .catch(dberr => res.status(400).send("Database error"))
         })
 })
@@ -148,8 +150,8 @@ app.post("/submitOrder", checkAuth, (req, res) => {
             const query = "insert into orders (orderid,status, orderdate, tableid, paymentreference,paymenttoken,totalamount,ordereditems ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8)";
             pool.query(query,values)
                 .then( db => {
-                    res.status(200);
-                })
+                    res.status(200).send();
+                }).catch(dberr => res.status(400).send("Database error"))
         }).catch(dberr => res.status(400).send("Database error"))
 });
 

@@ -22,6 +22,7 @@ export class PayDialogComponent implements OnInit {
 
   actionFunction() {
     this.serverService.submitOrder(JSON.parse(localStorage.getItem("cart") || "[]"),this.selected,1).subscribe()
+
     localStorage.removeItem("cart")
     this.shoppingCardService.shoppingCart = [] //delete shopping cart
     alert("Thank you for your order!");
