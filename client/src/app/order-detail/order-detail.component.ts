@@ -12,7 +12,6 @@ import { ActivatedRoute } from "@angular/router";
 export class OrderDetailComponent implements OnInit {
   orderid: Number = -1;
   orderitems: Item[] | undefined;
-  rated = false;
 
   constructor(
     private serverService: ServerServiceService,

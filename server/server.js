@@ -48,7 +48,7 @@ app.get("/reviews", (req, res) => {
 //Get all orders
 app.get("/orders", checkAuth, (req, res) => {
     let token = req.headers.authorization.split(" ")[1];
-    pool.query("select * from orders where paymenttoken = $1", [token]).then(db => res.status(200).json(db.rows))
+    pool.query("select * from orders where paymenttoken = $1 order by orderdate", [token]).then(db => res.status(200).json(db.rows))
         .catch(dberr => res.status(400).send("Database error"))
 })
 

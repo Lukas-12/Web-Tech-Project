@@ -27,11 +27,6 @@ export class OrderListComponent implements OnInit {
   }
 
   getOrders(): void {
-    this.serverService.getOrders().subscribe(orderList => {
-      this.orderList = orderList;
-      this.orderList.sort(function (a, b) { //Sort orders by time
-        return a.orderdate.getTime() - b.orderdate.getTime();
-        });
-    });
+    this.serverService.getOrders().subscribe(orderList => this.orderList = orderList)
   }
 }
