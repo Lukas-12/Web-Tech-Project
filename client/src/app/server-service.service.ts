@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Item} from "./model/item";
-import { Observable } from 'rxjs';
+import { Observable, throwError, NEVER } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+
 import {ItemListComponent} from "./item-list/item-list.component";
 import {Review} from "./model/review";
 import { Order } from './model/order';
@@ -33,7 +35,7 @@ export class ServerServiceService {
   }
 
   //Post a new review to DB
-  public postReview(review:Review): Observable<Review>{
+  public postReview(review: Review): Observable<Review>{
     return this.httpclient.post<Review>("http://localhost:3000/reviews",review)
   }
 
@@ -43,12 +45,30 @@ export class ServerServiceService {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
     }
-    return this.httpclient.get<Order[]>("http://localhost:3000/orders", header);
+    return this.httpclient.get<Order[]>("http://localhost:3000/orders", header).pipe(catchError(error => {
+      if (!!error.status && error.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+        return NEVER;
+      }
+      return throwError(error);
+    }));;
   }
 
   //Get all items from an order from DB
   public getOrderItems(id: Number): Observable<any> {
-    return this.httpclient.get<any>("http://localhost:3000/orderItems/" + id);
+    let header = {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
+    }
+    return this.httpclient.get<any>("http://localhost:3000/orderItems/" + id, header).pipe(catchError(error => {
+      if (!!error.status && error.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+        return NEVER;
+      }
+      return throwError(error);
+    }));;
   }
 
   //Like an item
@@ -57,7 +77,14 @@ export class ServerServiceService {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
     }
-    return this.httpclient.post<any>("http://localhost:3000/likeItem/" + orderId + "/" + itemId, null, header);
+     return this.httpclient.post<any>("http://localhost:3000/likeItem/" + orderId + "/" + itemId, null, header).pipe(catchError(error => {
+       if (!!error.status && error.status === 401) {
+         localStorage.removeItem('token');
+         window.location.href = '/';
+         return NEVER;
+       }
+       return throwError(error);
+     }));;
   }
 
   //Like an item
@@ -66,7 +93,14 @@ export class ServerServiceService {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem("token")}`)
     }
-    return this.httpclient.post<any>("http://localhost:3000/dislikeItem/" + orderId + "/" + itemId, null, header);
+    return this.httpclient.post<any>("http://localhost:3000/dislikeItem/" + orderId + "/" + itemId, null, header).pipe(catchError(error => {
+      if (!!error.status && error.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+        return NEVER;
+      }
+      return throwError(error);
+    }));;
   }
 
   public login()  {
@@ -74,7 +108,6 @@ export class ServerServiceService {
       this.httpclient.get<any>("http://localhost:3000/login" ).subscribe(token => {
         localStorage.setItem("token",token);
         console.log(localStorage.getItem("token"));
-
       })
       return true;
     }
@@ -86,8 +119,13 @@ export class ServerServiceService {
       headers: new HttpHeaders()
         .set('Authorization',  `Bearer ${localStorage.getItem("token")}`)
     }
-    let x = this.httpclient.post<any>("http://localhost:3000/submitOrder",{items: items, reference: reference, table: table} ,header);
-    console.log(x)
-    return x;
+    return this.httpclient.post<any>("http://localhost:3000/submitOrder", { items: items, reference: reference, table: table }, header).pipe(catchError(error => {
+      if (!!error.status && error.status === 401) {
+        localStorage.removeItem('token');
+        window.location.href = '/';
+        return NEVER;
+      }
+      return throwError(error);
+    }));;
   }
 }

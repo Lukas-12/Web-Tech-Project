@@ -39,10 +39,6 @@ export class ItemDetailComponent implements OnInit {
 
       if (likes > 0 || dislikes > 0) {
         this.rating = likes / (likes + dislikes);
-        console.log(5 / 6)
-        console.log(likes)
-        console.log(dislikes)
-        console.log(this.rating)
       }
     });
 

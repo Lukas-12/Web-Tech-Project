@@ -42,7 +42,6 @@ app.get("/itemsToOrder/:id", (req, res) => {
 app.get("/reviews", (req, res) => {
     pool.query("select * from reviews ").then(db => res.status(200).json(db.rows))
         .catch(dberr => res.status(400).send("Database error"))
-
 });
 
 //Get all orders
@@ -53,9 +52,10 @@ app.get("/orders", checkAuth, (req, res) => {
 })
 
 //Get items of an order
-app.get("/orderItems/:id", (req, res) => {
+app.get("/orderItems/:id", checkAuth, (req, res) => {
     let id = req.params.id;
-    pool.query("select ordereditems from orders where orderid = $1", [id]).then(db => res.status(200).json(db.rows))
+    let token = req.headers.authorization.split(" ")[1];
+    pool.query("select ordereditems from orders where orderid = $1 and paymenttoken = $2", [id, token]).then(db => res.status(200).json(db.rows))
         .catch(dberr => res.status(400).send("Database error"))
 })
 
