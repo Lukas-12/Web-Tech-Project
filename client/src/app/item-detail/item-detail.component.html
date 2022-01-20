@@ -1,9 +1,17 @@
-<div *ngFor="let item of item">
-  <h2>{{item.title | uppercase}}</h2>
-  <p>{{item.desc}}</p>
-  <p>Price: {{item.price}}€</p>
-  <p>Allergens: {{item.allergens}}</p>
-  <p>Status: {{item.status}}</p>
+<div>
+  <h2>{{item!.title | uppercase}}</h2>
+  <p>{{item!.desc}}</p>
+  <p>Price: {{item!.price}}€</p>
+  <p>Allergens: {{item!.allergens}}</p>
+  <p>Status: {{item!.status}}</p>
+  <p>Rating:
+      <span *ngIf="rating == 0">No Rating yet. Be the first one!</span>
+      <span *ngIf="rating > 0"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+      <span *ngIf="rating >= 0.4"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+      <span *ngIf="rating >= 0.6"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+      <span *ngIf="rating >= 0.8"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+      <span *ngIf="rating == 1"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+  </p>
   <button (click)="addItem()">Add to cart</button>
   <button (click)="goBack()">go back</button>
 </div>

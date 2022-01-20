@@ -13,7 +13,8 @@ import {ShoppingCartService} from "../shopping-cart.service";
 Represents a detail view of an Item
  */
 export class ItemDetailComponent implements OnInit {
-  item: Item[] | undefined
+  item: Item | undefined;
+  rating: Number = 0;
 
   constructor(
     private shoppingCartService: ShoppingCartService,
@@ -30,7 +31,20 @@ export class ItemDetailComponent implements OnInit {
   //Get the selected Item from the DB
   getItem(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.itemService.getItem(id).subscribe(item => this.item = item);
+    this.itemService.getItem(id).subscribe(item => {
+      this.item = item[0];
+
+      let likes = Number(this.item!.likescount);
+      let dislikes = Number(this.item!.dislikescount);
+
+      if (likes > 0 || dislikes > 0) {
+        this.rating = likes / (likes + dislikes);
+        console.log(5 / 6)
+        console.log(likes)
+        console.log(dislikes)
+        console.log(this.rating)
+      }
+    });
 
 
   }
@@ -42,14 +56,14 @@ export class ItemDetailComponent implements OnInit {
   //Add the Item to the shopping cart
   addItem():void{
     // @ts-ignore
-    this.shoppingCartService.addItem(this.item[0]);
+    this.shoppingCartService.addItem(this.item);
   }
 
   //Remove item from shopping cart
   //TODO add to HTML or not?
   removeItem():void{
     // @ts-ignore
-    this.shoppingCartService.removeItem(this.item[0]);
+    this.shoppingCartService.removeItem(this.item);
   }
 
 }
