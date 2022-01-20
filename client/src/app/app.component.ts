@@ -3,6 +3,7 @@ import {ShoppingCartService} from "./shopping-cart.service";
 import {ServerServiceService} from "./server-service.service";
 import {Location} from "@angular/common";
 import {Router, RouterModule} from '@angular/router'
+import {MatDialog} from "@angular/material/dialog";
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,7 +14,7 @@ export class AppComponent implements OnInit{
   entered = false;
   constructor(
     private serverService: ServerServiceService,
-
+    public matDialog: MatDialog
 
   )
   {}

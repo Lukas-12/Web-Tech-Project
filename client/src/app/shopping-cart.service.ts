@@ -13,6 +13,7 @@ export class ShoppingCartService {
 
   //Add Item to shopping cart
   addItem(item: Item){
+    this.shoppingCart =  JSON.parse(localStorage.getItem("cart") || "[]");
     const result = this.shoppingCart.find(isInCart => isInCart.itemid === item.itemid )
     if(result!=undefined){ //Item is in Array
       result.amount++;
@@ -21,16 +22,23 @@ export class ShoppingCartService {
       this.shoppingCart.push(item);
 
     }
+    localStorage.setItem("cart",JSON.stringify(this.shoppingCart))
   }
 
   //Remove Item from shopping cart
   removeItem(item: Item){
+    this.shoppingCart =  JSON.parse(localStorage.getItem("cart") || "[]");
     const result = this.shoppingCart.find(isInCart => isInCart.itemid === item.itemid )
     if(result!= undefined){ //Decrease amount of item
       result.amount--;
       if(result.amount === 0){ //Remove item from array
-        this.shoppingCart.splice(this.shoppingCart.indexOf(item),1);
+        let search = this.shoppingCart.find(isInCart => isInCart.itemid === item.itemid);
+        if(search != null){
+          this.shoppingCart.splice(this.shoppingCart.indexOf(search),1);
+        }
+
       }
     }
+    localStorage.setItem("cart",JSON.stringify(this.shoppingCart))
   }
 }
