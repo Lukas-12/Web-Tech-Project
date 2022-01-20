@@ -1,7 +1,7 @@
 <div>
   <h2>{{item!.title | uppercase}}</h2>
   <p>{{item!.desc}}</p>
-  <p>Price: {{item!.price}}€</p>
+  <p>Price: {{item!.price | number:'1.2-2'}}€</p>
   <p>Allergens: {{item!.allergens}}</p>
   <p>Status: {{item!.status}}</p>
   <p>Rating:
