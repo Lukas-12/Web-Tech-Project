@@ -1,0 +1,21 @@
+<div id="modal-content-wrapper">
+  <header id="modal-header">
+    <h1 id="modal-title">Payment window</h1>
+  </header>
+  <section id="modal-body">
+    <p>Please select your payment Methode</p>
+  </section>
+  <mat-form-field appearance="fill">
+    <mat-label>Payment Method</mat-label>
+    <mat-select [(value)]="selected">
+      <mat-option value="VISA">VISA</mat-option>
+      <mat-option value="Paypal">PayPal</mat-option>
+      <mat-option value="Maestro">Maestro</mat-option>
+      <mat-option value="Klarna">Klarna</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <footer id="modal-footer">
+    <button mat-raised-button id="modal-action-button" (click)="actionFunction()">Submit</button>
+    <button mat-raised-button id="modal-cancel-button" (click)="closeModal()">Go back</button>
+  </footer>
+</div>

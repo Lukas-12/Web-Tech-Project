@@ -12,7 +12,12 @@ import { ReviewFormComponent } from './review-form/review-form.component';
 import { FormsModule } from '@angular/forms';
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
-
+import { PayDialogComponent } from './pay-dialog/pay-dialog.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatSelectModule} from "@angular/material/select";
 
 
 @NgModule({
@@ -25,6 +30,8 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
     ReviewFormComponent,
     OrderListComponent,
     OrderDetailComponent,
+    PayDialogComponent,
+
 
   ],
   imports: [
@@ -32,7 +39,12 @@ import { OrderDetailComponent } from './order-detail/order-detail.component';
     AppRoutingModule,
     HttpClientModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule
   ],
   providers: [],
   bootstrap: [AppComponent]
