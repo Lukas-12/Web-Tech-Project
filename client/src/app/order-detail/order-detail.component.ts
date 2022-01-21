@@ -43,7 +43,10 @@ export class OrderDetailComponent implements OnInit {
           newItem.status = i.status;
           newItem.gotrated = i.gotrated;
           if (this.orderitems) {
-             this.orderitems.push(newItem);
+            this.orderitems.push(newItem);
+            this.orderitems.sort((a, b) => {
+              return a.itemid - b.itemid;
+            })
           }
         })
       }

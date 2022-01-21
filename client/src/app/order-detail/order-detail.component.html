@@ -1,10 +1,19 @@
 <h2>Purchased Items</h2>
-  <li *ngFor="let item of orderitems">
-    {{item.title}}
+<div id="content">
+  <div id="contentTitle">
+    <p>Item</p>
+    <p>Feedback</p>
+  </div>
+  <div id="item" *ngFor="let item of orderitems">
     {{item.amount}}x
+    {{item.title}}
     <span *ngIf="item.gotrated == false">
-      <button (click)="likeItem(item); item.gotrated=true">Like :)</button>
-      <button (click)="dislikeItem(item); item.gotrated=true">Dislike :(</button>
+      <button id="like" (click)="likeItem(item); item.gotrated=true"><img src="/assets/thumbs-up.png" width="30" height="30"></button>
+      <button id="dislike" (click)="dislikeItem(item); item.gotrated=true"><img src="/assets/thumbs-down.png" width="30" height="30"></button>
     </span>
-  </li>
-<button id='back' (click)="goBack()"><img src="/assets/left-arrow.png" width="40" height="40"></button>
+    <span id="gotRated" *ngIf="item.gotrated == true">
+      Feedback recieved!
+    </span>
+</div>
+</div>
+<button id="back" (click)="goBack()"><img src="/assets/left-arrow.png" width="40" height="40"></button>

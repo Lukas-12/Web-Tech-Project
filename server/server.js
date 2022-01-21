@@ -55,7 +55,7 @@ app.get("/orders", checkAuth, (req, res) => {
 app.get("/orderItems/:id", checkAuth, (req, res) => {
     let id = req.params.id;
     let token = req.headers.authorization.split(" ")[1];
-    pool.query("select ordereditems from orders where orderid = $1 and paymenttoken = $2 order by cast(ordereditems->>'itemid' as integer)", [id, token]).then(db => res.status(200).json(db.rows))
+    pool.query("select ordereditems from orders where orderid = $1 and paymenttoken = $2", [id, token]).then(db => res.status(200).json(db.rows))
         .catch(dberr => res.status(400).send("Database error"))
 })
 

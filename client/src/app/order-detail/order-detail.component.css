@@ -5,6 +5,40 @@
   padding: 0px;
 }
 
+#content {
+  border: 2px solid black;
+  border-radius: 5px;
+  display: block;
+  margin-left: 20px;
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 500px;
+}
+
+#contentTitle {
+  font-weight: bold;
+  font-size:large;
+}
+
+#item, #contentTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+#like, #dislike {
+  margin-left: 10px;
+  border: none;
+  background-color: white;
+  padding: 0px;
+}
+
+#gotRated {
+  color: #32b827;
+}
+
+
 h2 {
   margin: 20px;
 }
