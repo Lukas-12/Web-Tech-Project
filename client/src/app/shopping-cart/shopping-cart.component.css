@@ -3,8 +3,13 @@ h2 {
   margin-left: 20px;
 }
 
-button {
-  margin-left: 20px;
+#submitButton {
+  margin-top: 20px;
+  margin-left: 350px;
+  background-color: #eee;
+  padding: 1rem;
+  border-radius: 4px;
+  font-size: 1.5rem;
 }
 
 #content {
@@ -20,6 +25,13 @@ button {
 #content p {
   font-size: large;
   font-weight: bold;
+}
+
+#back {
+  border: none;
+  background-color: white;
+  margin-left: 20px;
+  padding: 0px;
 }
 
 #item {

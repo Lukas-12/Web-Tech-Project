@@ -1,29 +1,34 @@
 <h2>Your Orders</h2>
-
-<table>
-  <tr>
-    <th>Order Nr.</th>
-    <th>Date</th>
-    <th>Status</th>
-    <th>Table</th>
-    <th>Payment Reference</th>
-    <th>Total Amount</th>
-    <th>Items</th>
-  </tr>
-  <ng-container *ngFor="let order of orderList; let i = index">
+<div id="emptyOrders" *ngIf="orderList!.length == 0">
+  <p>No orders yet.</p>
+  <p>After you purchased some items from the shopping cart you can see them here.</p>
+</div>
+<div *ngIf="orderList!.length > 0">
+  <table>
     <tr>
-      <td>{{i+1}}</td>
-      <td>{{order.orderdate | date: 'shortDate'}}</td>
-      <td>{{order.status}}</td>
-      <td>{{order.tableid}}</td>
-      <td>{{order.paymentreference}}</td>
-      <td>{{order.totalamount | number:'1.2-2'}}€</td>
-      <td>
-        <a routerLink="/orderDetail/{{order.orderid}}">
-          <span>See Purchased Items</span>
-        </a>
-      </td>
+      <th>Order Nr.</th>
+      <th>Date</th>
+      <th>Status</th>
+      <th>Table</th>
+      <th>Payment Reference</th>
+      <th>Total Amount</th>
+      <th>Items</th>
     </tr>
-  </ng-container>
-</table>
+    <ng-container *ngFor="let order of orderList; let i = index">
+      <tr>
+        <td>{{i+1}}</td>
+        <td>{{order.orderdate | date: 'shortDate'}}</td>
+        <td>{{order.status}}</td>
+        <td>{{order.tableid}}</td>
+        <td>{{order.paymentreference}}</td>
+        <td>{{order.totalamount | number:'1.2-2'}}€</td>
+        <td>
+          <a routerLink="/orderDetail/{{order.orderid}}">
+            <span>See Purchased Items</span>
+          </a>
+        </td>
+      </tr>
+    </ng-container>
+  </table>
+</div>
 <button id='back' (click)="goBack()"><img src="/assets/left-arrow.png" width="40" height="40"></button>
