@@ -4,14 +4,15 @@
   <p>Price: {{item!.price | number:'1.2-2'}}€</p>
   <p>Allergens: {{item!.allergens}}</p>
   <p>Status: {{item!.status}}</p>
-  <p>Rating:
-      <span *ngIf="rating == 0">No Rating yet. Be the first one!</span>
-      <span *ngIf="rating > 0"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-      <span *ngIf="rating >= 0.4"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-      <span *ngIf="rating >= 0.6"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-      <span *ngIf="rating >= 0.8"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-      <span *ngIf="rating == 1"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+  <p>
+    Rating:
+    <span *ngIf="rating == 0">No Rating yet. Be the first one!</span>
+    <span *ngIf="rating > 0"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+    <span *ngIf="rating >= 0.4"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+    <span *ngIf="rating >= 0.6"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+    <span *ngIf="rating >= 0.8"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+    <span *ngIf="rating == 1"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
   </p>
+  <button id="back" (click)="goBack()"><img src="/assets/left-arrow.png" width="40" height="40"></button>
   <button (click)="addItem()">Add to cart</button>
-  <button (click)="goBack()">go back</button>
 </div>

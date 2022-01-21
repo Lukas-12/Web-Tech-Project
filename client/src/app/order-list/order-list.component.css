@@ -13,8 +13,16 @@ th, td {
   padding: 10px;
   text-align: right
 }
+
 th {
   text-align: center
+}
+
+#back {
+  border: none;
+  background-color: white;
+  margin-left: 20px;
+  padding: 0px;
 }
 
 table tr:first-child {

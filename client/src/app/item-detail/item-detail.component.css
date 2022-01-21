@@ -1,13 +1,24 @@
 
+div {
+  margin: 20px;
+}
+
+#back {
+  border: none;
+  background-color: white;
+  margin-left: 0px;
+  padding: 0px;
+}
 
 button {
   margin-top: 20px;
+  margin-left:20px;
   background-color: #eee;
   padding: 1rem;
   border-radius: 4px;
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
-button:hover {
+button:nth-child(2):hover {
   background-color: #cfd8dc;
 }
 button:disabled {
