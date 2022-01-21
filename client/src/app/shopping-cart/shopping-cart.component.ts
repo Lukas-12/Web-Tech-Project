@@ -16,7 +16,8 @@ Shopping-cart.service takes more information
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  order: Order|undefined
+  order: Order | undefined
+  totalAmount: number = 0
 
   constructor(
     private serverService: ServerServiceService,
@@ -26,7 +27,6 @@ export class ShoppingCartComponent implements OnInit {
     { }
 
   ngOnInit(): void {
-
   }
   goBack(): void {
     this.location.back();
@@ -40,8 +40,12 @@ export class ShoppingCartComponent implements OnInit {
    dialogConfig.autoFocus = true;
     const dialog = this.matDialog.open(PayDialogComponent, dialogConfig)
   }
-  public localStorageItem(){
-    return JSON.parse(localStorage.getItem("cart") || "[]");
-
+  public localStorageItem() {
+    this.totalAmount = 0;
+    let items = JSON.parse(localStorage.getItem("cart") || "[]");
+    for (let item of items) {
+      this.totalAmount = this.totalAmount + (item.price * item.amount);
+    }
+    return items;
   }
 }

@@ -1,14 +1,21 @@
-<div *ngIf="localStorageItem().length">
-
+<div *ngIf="localStorageItem().length;">
   <h2>Shopping Cart</h2>
-  <div *ngFor='let item of localStorageItem()'>
-    {{item.title}}
-    {{item.amount}}x
-    <button (click)="shoppingCardService.removeItem(item)">remove one</button>
-    <button (click)="shoppingCardService.addItem(item)">add one</button>
+  <div id='content'>
+    <div id='item' *ngFor='let item of localStorageItem();'>
+      {{item.amount}}x
+      {{item.title}}
+      ({{(item.price * item.amount) | number:'1.2-2'}}€)
+      <span>
+        <button (click)="shoppingCardService.removeItem(item)">-</button>
+        <button (click)="shoppingCardService.addItem(item)">+</button>
+      </span>
+    </div>
+    <hr />
+    <p>Total: {{totalAmount | number:'1.2-2'}}€</p>
   </div>
+  <br/>
   <button (click)="goBack()">go back</button>
-  <button id ="submitButton" (click)="submitOrder()">Submit Order</button>
+  <button id="submitButton" (click)="submitOrder()">Submit Order</button>
 </div>
 
 
