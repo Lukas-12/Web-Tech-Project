@@ -1,0 +1,23 @@
+h2 {
+ text-align: center;
+ margin-top: 20px;
+}
+
+ul {
+  width: 200px;
+  margin: auto;
+  padding-bottom: 200px;
+}
+
+li {
+  margin-bottom: 30px;
+  border: 2px solid black;
+  border-radius: 5px;
+  padding: 10px;
+  width: 200px;
+}
+
+li p:first-of-type {
+  font-weight: bold;
+  font-size: large;
+}

@@ -1,10 +1,10 @@
-<h3>Write your review here:</h3>
+<h2>Write your review here:</h2>
 <app-review-form></app-review-form>
-<h2>List of reviews!</h2>
-<ul class="review">
-  <li *ngFor="let review of reviewList">
+<h2>Reviews from our clients:</h2>
+  <ul class="review">
+    <li *ngFor="let review of reviewList">
       <p>{{review.username}}</p>
       <p>{{review.date.substring(0,review.date.indexOf("T"))}}</p>
       <p>{{review.description}}</p>
-  </li>
-</ul>
+    </li>
+  </ul>

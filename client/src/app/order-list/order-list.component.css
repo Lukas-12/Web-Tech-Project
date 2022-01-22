@@ -41,6 +41,10 @@ th {
   text-align: center
 }
 
+#content {
+  padding-bottom: 100px;
+}
+
 #back {
   border: none;
   background-color: white;
