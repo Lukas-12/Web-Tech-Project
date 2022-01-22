@@ -18,13 +18,19 @@ export class ItemListComponent implements OnInit {
     private location: Location
     ) { }
   itemList: Item[] | undefined;
+  topItems: Item[] | undefined;
 
   ngOnInit(): void {
-    this.getItems()
+    this.getTopSeller();
+    this.getItems();
   }
 
+  // Get the top sellers from DB
+  getTopSeller(): void {
+    this.serverService.getTopSellerItems(5).subscribe(topItems => this.topItems = topItems);
+  }
   // Get all Items from DB
-  getItems():void{
+  getItems(): void {
       this.serverService.getItemsToOrder().subscribe(itemList => this.itemList = itemList);
   }
 

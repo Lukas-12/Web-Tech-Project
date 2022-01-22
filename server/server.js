@@ -38,6 +38,39 @@ app.get("/itemsToOrder/:id", (req, res) => {
         .catch(dberr => res.status(400).send("Database error"))
 });
 
+//Get top purchased items from orders of the last 30 days
+app.get("/topSeller/:topnumber", (req, res) => {
+    let topNumber = req.params.topnumber;
+    pool.query("select ordereditems from orders where cast(orderdate as date) >= current_date - 30 order by orderid").then(latest => {
+        let itemSums = new Map();
+        for (let row = 0; row < latest.rowCount; row++) {
+            for (let item of latest.rows[row].ordereditems) {
+                let id = item.itemid;
+                let amount = item.amount;
+                if (itemSums.has(id)) {
+                    itemSums.set(id, Number(itemSums.get(id)) + Number(amount))
+                } else {
+                    itemSums.set(id, amount);
+                }
+            }
+        }
+        let sorted = Array.from(new Map([...itemSums.entries()].sort((a, b) => b[1] - a[1])).keys());
+        if (sorted.length > topNumber) {
+            sorted = sorted.slice(0, topNumber); //Only the top n elements
+        }
+
+        let ids = "(" + sorted.toString() + ")";
+        let queryy = "select * from items where itemid in " + ids + " order by case itemid";
+        for (let i = 0; i < sorted.length; i++) {
+            queryy = queryy + " when " + sorted[i] + " then " + (i + 1);
+        }
+        queryy = queryy + " end";
+        pool.query(queryy).then(db => res.status(200).json(db.rows))
+            .catch(dberr => res.status(400).send("Database error"))
+    })
+        .catch(dberr => res.status(400).send("Database error"))
+})
+
 //Get all reviews
 app.get("/reviews", (req, res) => {
     pool.query("select * from reviews ").then(db => res.status(200).json(db.rows))

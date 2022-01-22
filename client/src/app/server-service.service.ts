@@ -71,6 +71,10 @@ export class ServerServiceService {
     }));;
   }
 
+  public getTopSellerItems(topNumber: Number): Observable<Item[]> {
+    return this.httpclient.get<Item[]>("http://localhost:3000/topSeller/" + topNumber);
+  }
+
   //Like an item
    public likeItem (orderId: Number, itemId: Number) : Observable<any> {
      let header =  {
