@@ -1,4 +1,4 @@
-<div>
+<div id="content">
   <h2>{{item!.title | uppercase}}</h2>
   <p>{{item!.desc}}</p>
   <p>Price: {{item!.price | number:'1.2-2'}}€</p>
@@ -7,11 +7,11 @@
   <p>
     Rating:
     <span *ngIf="rating == 0">No Rating yet. Be the first one!</span>
-    <span *ngIf="rating > 0"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-    <span *ngIf="rating >= 0.4"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-    <span *ngIf="rating >= 0.6"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-    <span *ngIf="rating >= 0.8"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
-    <span *ngIf="rating == 1"><img src="/assets/pizza_slice.png" width="50" height="50"></span>
+    <span *ngIf="rating > 0"><img src="/assets/pizza_slice.png" width="40" height="40"></span>
+    <span *ngIf="rating >= 0.4"><img src="/assets/pizza_slice.png" width="40" height="40"></span>
+    <span *ngIf="rating >= 0.6"><img src="/assets/pizza_slice.png" width="40" height="40"></span>
+    <span *ngIf="rating >= 0.8"><img src="/assets/pizza_slice.png" width="40" height="40"></span>
+    <span *ngIf="rating == 1"><img src="/assets/pizza_slice.png" width="40" height="40"></span>
   </p>
   <button id="back" (click)="goBack()"><img src="/assets/left-arrow.png" width="40" height="40"></button>
   <button (click)="addItem()">Add to cart</button>

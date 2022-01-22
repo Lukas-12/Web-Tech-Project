@@ -1,18 +1,21 @@
 #back {
   border: none;
   background-color: white;
-  margin-left: 20px;
+  margin-top: 20px;
   padding: 0px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #content {
   border: 2px solid black;
   border-radius: 5px;
   display: block;
-  margin-left: 20px;
-  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 20px;
-  width: 500px;
+  width: 450px;
 }
 
 #contentTitle {
@@ -38,10 +41,11 @@
   color: #32b827;
 }
 
-
 h2 {
   margin: 20px;
+  text-align: center;
 }
+
 li {
   margin: 20px;
 }

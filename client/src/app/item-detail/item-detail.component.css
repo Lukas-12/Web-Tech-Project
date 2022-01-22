@@ -26,3 +26,8 @@ button:disabled {
   color: #ccc;
   cursor: auto;
 }
+
+#content {
+  text-align: center;
+  font-size:large;
+}

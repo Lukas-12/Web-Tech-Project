@@ -1,10 +1,10 @@
+<h2>Shopping Cart</h2>
 <div id="emptyCart" *ngIf="localStorageItem().length == 0">
   <p>No items in cart.</p>
   <p>Add some items from the "Order Items" tab to continue with your purchase.</p>
 </div>
 
 <div *ngIf="localStorageItem().length;">
-  <h2>Shopping Cart</h2>
   <div id='content'>
     <div id='item' *ngFor='let item of localStorageItem();'>
       {{item.amount}}x
@@ -20,7 +20,8 @@
   </div>
   <br />
 </div>
-<button id='back' (click)="goBack()"><img src="/assets/left-arrow.png" width="40" height="40"></button>
-
-<button id="submitButton" *ngIf="localStorageItem().length;" (click)="submitOrder()">Submit Order</button>
+<div id="buttons">
+  <button id='back' (click)="goBack()"><img src="/assets/left-arrow.png" width="40" height="40"></button>
+  <button id="submitButton" *ngIf="localStorageItem().length;" (click)="submitOrder()">Submit Order</button>
+</div>
 
