@@ -6,6 +6,7 @@ import {ShoppingCartComponent} from "./shopping-cart/shopping-cart.component";
 import {ReviewListComponent} from "./review-list/review-list.component";
 import { OrderListComponent } from './order-list/order-list.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
+import {CallWaiterComponent} from "./call-waiter/call-waiter.component";
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'reviews', component: ReviewListComponent },
   { path: 'orderList', component: OrderListComponent },
   { path: 'orderDetail/:id', component: OrderDetailComponent },
+  { path: 'callWaiter',component: CallWaiterComponent}
 
 
 
