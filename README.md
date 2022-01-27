@@ -7,7 +7,7 @@
 * Display Top-Sellers **(Johannes Ladurner)**
 * Check Order Status **(Johannes Ladurner)**
 * Guests can write review **(Buchsbaum Lukas)**
-* Submit an order**(Buchsbaum Lukas)**
+* Submit an order **(Buchsbaum Lukas)**
 * Payment window **(Buchsbaum Lukas)**
 * Rate specific items **(Johannes Ladurner)**
 * CSS style **(Johannes Ladurner)**
